@@ -68,10 +68,10 @@ public class AppPlain {
 
             CreateBatchRequest request1 = new CreateBatchRequest(changes);
             request1.setOwnerGroupId(group.getId());
-            VinylDNSResponse<BatchResponse> batchResponse1 = vinylDNSClient.createBatchChanges(request1);
 
             // Important!  Actually runs the request, submitting it to VinylDNS
             // At this point, it may not be complete, but as long as you don't get an error you are good!
+            VinylDNSResponse<BatchResponse> batchResponse1 = vinylDNSClient.createBatchChanges(request1);
             System.out.println("Batch change 1 submitted!");
 
             // NEVER DO THIS IN PRODUCTION, only useful for this test

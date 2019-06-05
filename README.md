@@ -22,6 +22,8 @@ From the root directory, execute the script `./run-sample.sh`
 
 This is just a wrapper around the command `mvn compile exec:java -Dexec.mainClass=com.vinyldns.sample.App -Dexec.cleanupDaemonThreads=false`
 
+*Note: if you get any errors running the script, you may have to restart your docker instance to clear stale test data*
+
 ## Description
 
 The example application is designed to setup some VinylDNS entities (groups and zones).  It then proceeds
