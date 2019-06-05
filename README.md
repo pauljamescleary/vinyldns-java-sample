@@ -33,8 +33,12 @@ to run through a few batch changes.
 
 ## An overview of the source code.
 
+There is an `AppPlain` class that shows how to directly use the low level vinyldns-java client for
+submitting batch changes.  You can compare it directly to the `App` class.
+
 The sample application can all be found in the `App` class.  It handles setup and teardown of the test
-artifacts so that the Batch Changes can run.
+artifacts so that the Batch Changes can run.  The `App` class uses the `VinylDNSHelper` to help simplify
+creating batch requests.
 
 The `VinylDNSHelper` provides a small (and perhaps unnecessary) wrapper around the `VinylDNSClient` that comes
 from the [VinylDNS-Java Library](https://github.com/vinyldns/vinyldns-java).  All it does is look for an
