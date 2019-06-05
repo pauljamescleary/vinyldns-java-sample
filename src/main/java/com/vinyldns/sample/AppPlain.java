@@ -22,6 +22,7 @@ import io.vinyldns.java.model.zone.ZoneRequest;
 import io.vinyldns.java.model.zone.ZoneResponse;
 import io.vinyldns.java.responses.VinylDNSResponse;
 
+import java.lang.reflect.Array;
 import java.util.*;
 import java.util.function.Supplier;
 
@@ -60,13 +61,10 @@ public class AppPlain {
             AddChangeInput addInput2 = new AddChangeInput("test-java-2.ok.", RecordType.A, 300L, new AData("192.0.2.111"));
             AddChangeInput ptrInput2 = new AddChangeInput("192.0.2.111", RecordType.PTR, 7200L, new PTRData("test-java-2.ok."));
 
-            List<ChangeInput> changes = new ArrayList<>();
-            changes.add(addInput1);
-            changes.add(ptrInput1);
-            changes.add(addInput2);
-            changes.add(ptrInput2);
-
+            List<ChangeInput> changes = Arrays.asList(addInput1, ptrInput1, addInput2, ptrInput2);
             CreateBatchRequest request1 = new CreateBatchRequest(changes);
+
+            // Note: You MUST set the owner group id on the CreateBatchChangeRequest
             request1.setOwnerGroupId(group.getId());
 
             // Important!  Actually runs the request, submitting it to VinylDNS
@@ -98,16 +96,7 @@ public class AppPlain {
             AddChangeInput replaceA2 = new AddChangeInput("test-java-2.ok.", RecordType.A, 300L, new AData("192.0.2.116"));
             AddChangeInput replacePtr2 = new AddChangeInput("192.0.2.116", RecordType.PTR, 7200L, new PTRData("test-java-2.ok."));
 
-            List<ChangeInput> changes2 = new ArrayList<>();
-            changes2.add(deleteA1);
-            changes2.add(deletePtr1);
-            changes2.add(deleteA2);
-            changes2.add(deletePtr2);
-            changes2.add(replaceA1);
-            changes2.add(replacePtr1);
-            changes2.add(replaceA2);
-            changes2.add(replacePtr2);
-
+            List<ChangeInput> changes2 = Arrays.asList(deleteA1, deletePtr1, deleteA2, deletePtr2, replaceA1, replacePtr1, replaceA2, replacePtr2);
             CreateBatchRequest request2 = new CreateBatchRequest(changes2);
             request1.setOwnerGroupId(group.getId());
             VinylDNSResponse<BatchResponse> batchResponse2 = vinylDNSClient.createBatchChanges(request2);
@@ -123,12 +112,7 @@ public class AppPlain {
             DeleteRecordSetChangeInput cleanA2 = new DeleteRecordSetChangeInput("test-java-2.ok.", RecordType.A);
             DeleteRecordSetChangeInput cleanPtr2 = new DeleteRecordSetChangeInput("192.0.2.116", RecordType.PTR);
 
-            List<ChangeInput> changes3 = new ArrayList<>();
-            changes3.add(cleanA1);
-            changes3.add(cleanPtr1);
-            changes3.add(cleanA2);
-            changes3.add(cleanPtr2);
-
+            List<ChangeInput> changes3 = Arrays.asList(cleanA1, cleanPtr1, cleanA2, cleanPtr2);
             CreateBatchRequest request3 = new CreateBatchRequest(changes3);
             request1.setOwnerGroupId(group.getId());
             VinylDNSResponse<BatchResponse> batchResponse3 = vinylDNSClient.createBatchChanges(request3);
