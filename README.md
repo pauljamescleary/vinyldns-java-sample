@@ -45,7 +45,27 @@ understand that your batch change failed.
 
 If the batch change is successfully submitted, you will get a 202 and the batch change will be queued for processing.
 
-### Low-level vinyldns-java API
+### Connecting to VinylDNS
+
+To connect to VinylDNS, you need your credentials (available via the user portal).  Once you have your credentials, 
+you can setup the client.
+
+```java
+String accessKey = System.getenv("VINYLDNS_ACCESS_KEY"); // from your credentials
+String secretKey = System.getenv("VINYLDNS_SECRET_KEY"); // from your credentials
+String vinylDNSUrl = System.getenv("VINYLDNS_URL"); // the full url to the vinyldns instance you are hitting
+
+if (accessKey == null || secretKey == null || vinylDNSUrl == null) {
+    throw new RuntimeException("Unable to load vinyldns, environment variables not found");
+}
+
+// Actually connects to Vinyl using vinyldns-java
+VinylDNSClientConfig config =
+        new VinylDNSClientConfig(vinylDNSUrl, new BasicAWSCredentials(accessKey, secretKey));
+this.vinylDNSClient = new VinylDNSClientImpl(config);
+```
+
+### vinyldns-java BatchChange API
 
 When working with Batch Changes, you have to keep in mind when keeping A+PTR records together...
 
