@@ -42,8 +42,7 @@ public class App {
     public static void main(String[] args) {
         // Everything here assumes running docker locally, if you are hitting the dev environment, you
         // will need to use your own
-        // accessKey, secretKey, and ownerGroupId and the url should be
-        // https://dev-api.vinyldns.comcast.net:9443
+        // accessKey, secretKey
         VinylDNSHelper vinylHelper =
                 new VinylDNSHelper("testUserAccessKey", "testUserSecretKey", "http://localhost:9000");
 

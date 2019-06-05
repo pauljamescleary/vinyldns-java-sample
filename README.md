@@ -98,13 +98,7 @@ VinylDNSResponse<BatchResponse> response = vinylDNSClient.createBatchChanges(req
 
 ### BatchRequestBuilder
 
-This app has a `BatchRequestBuilder` that simplifies the process of making Batch Change requests.  Some things to keep in mind:
-
-1. _CREATING_ an A+PTR record requires _TWO_ changes, an ADD for the A, and an ADD for the PTR
-1. _CHANGING THE IP_ for an A+PTR requires _FOUR_ changes: DELETE A, DELETE PTR, ADD A, ADD PTR
-1. _DELETING_ an A+PTR requires _TWO_ changes, a DELETE A and DELETE PTR
-
-As this can be confusing, the `BatchChangeRequestHelper` and the `RecordItem` classes simplify that process.
+This app has a `BatchRequestBuilder` that simplifies the process of making Batch Change requests.  This is totally optional.
 
 * `RecordItem` - this is a single record to be created / updated / deleted in a batch change
 * `APtrRecordItem` - represents a change that will work on both an A and it's corresponding PTR record
