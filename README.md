@@ -51,6 +51,7 @@ To connect to VinylDNS, you need your credentials (available via the user portal
 you can setup the client.
 
 ```java
+// Assumes these are in your environment, but you can get them anyway you want...
 String accessKey = System.getenv("VINYLDNS_ACCESS_KEY"); // from your credentials
 String secretKey = System.getenv("VINYLDNS_SECRET_KEY"); // from your credentials
 String vinylDNSUrl = System.getenv("VINYLDNS_URL"); // the full url to the vinyldns instance you are hitting
