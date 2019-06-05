@@ -45,6 +45,34 @@ understand that your batch change failed.
 
 If the batch change is successfully submitted, you will get a 202 and the batch change will be queued for processing.
 
+### Low-level vinyldns-java API
+
+When working with Batch Changes, you have to keep in mind when keeping A+PTR records together...
+
+1. _CREATING_ an A+PTR record requires _TWO_ changes, an ADD for the A, and an ADD for the PTR
+1. _CHANGING THE IP_ for an A+PTR requires _FOUR_ changes: DELETE A, DELETE PTR, ADD A, ADD PTR
+1. _DELETING_ an A+PTR requires _TWO_ changes, a DELETE A and DELETE PTR
+
+As an example, to CREATE an A+PTR record the following code would build the request...
+
+```java
+List<ChangeInput> changes = new ArrayList<>();
+
+// The forward A record
+AData adata = new AData("1.2.3.4");
+AddChangeInput addInput = new AddChangeInput("www.example.com", RecordType.A, 300L, adata);
+
+// The reverse PTR record, note how it is the mirror inverse of the A record
+PTRData ptrdata = new PTRData("www.example.com")
+AddChangeInput ptrInput = new AddChangeInput("1.2.3.4", RecordType.PTR, 7200L, ptrdata));
+changes.add(addInput);
+changes.add(ptrInput);
+
+CreateBatchRequest batchRequest = new CreateBatchRequest(changes);
+VinylDNSResponse<BatchResponse> response = vinylDNSClient.createBatchChanges(request);
+
+```
+
 ### BatchRequestBuilder
 
 This app has a `BatchRequestBuilder` that simplifies the process of making Batch Change requests.  Some things to keep in mind:
