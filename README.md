@@ -89,6 +89,8 @@ changes.add(addInput);
 changes.add(ptrInput);
 
 CreateBatchRequest batchRequest = new CreateBatchRequest(changes);
+batchRequest.setOwnerGroupId(ownerGroupId);
+
 VinylDNSResponse<BatchResponse> response = vinylDNSClient.createBatchChanges(request);
 
 ```
